@@ -6,7 +6,7 @@ notifications locales.
 
 ## Telechargement (APK)
 
-Derniere version : **2026.10.30**
+Derniere version : **2026.10.30.3**
 
 - Installer via le QR code affiche dans KI-GEST > A propos, ou
 - Telecharger directement :
