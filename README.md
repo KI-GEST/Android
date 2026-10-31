@@ -6,11 +6,29 @@ notifications locales.
 
 ## Telechargement (APK)
 
-Derniere version : **2026.10.30.5**
+Derniere version : **2026.10.31.1** (versionCode 7)
 
 - Installer via le QR code affiche dans KI-GEST > A propos, ou
 - Telecharger directement :
   https://github.com/KI-GEST/Android/releases/latest/download/com.kigest.mobile-Signed.apk
+
+## Nouveautes 2026.10.31.1
+
+Correctif du « page blanche » constate apres la saisie de l'adresse du hub.
+
+- **Port 81 applique par defaut.** Une adresse saisie sans port (`http://100.x.x.x`)
+  etait envoyee sur le port 80, ou rien n'ecoute : la WebView restait blanche sans
+  message. Le port 81 du hub est desormais ajoute automatiquement. Un port écrit
+  explicitement reste respecte, et `https://` garde son port 443 implicite.
+- **Message d'erreur a l'ecran.** L'application affiche desormais le motif réel de
+  l'echec au lieu de laisser une page vide : adresse precise, code d'erreur Android,
+  description, et controle a effectuer (port 81, etat de NetBird sur le telephone).
+  Une reponse du hub en erreur HTTP (4xx / 5xx) est egalement affichee.
+- **Injection du pont fiabilisee.** Le pont Android (empreinte, notifications) n'etait
+  tente qu'une seule fois, a un instant ou la vue native n'existait pas toujours :
+  ratez cette fenetre et aucune page n'etait jamais chargee. Le pont est desormais
+  reessaie jusqu'a sa reussite, avec une garde-fou qui charge la page de toute facon
+  au bout de 1,2 s et l'indique a l'ecran.
 
 ## Fichiers
 
@@ -19,16 +37,18 @@ Derniere version : **2026.10.30.5**
 
 ## Mise a jour depuis une version anterieure
 
-A partir de la 2026.10.30.5, l'APK est signe avec le keystore de release KI-GEST.
-Les versions precedentes (jusqu'a 2026.10.30.4 incluse) etaient signees avec la cle de
-debug : Android refuse une mise a jour dont la signature change
-(INSTALL_FAILED_UPDATE_INCOMPATIBLE). Il faut donc desinstaller KI-GEST une fois,
-puis installer la 2026.10.30.5. Ce geste unique fait perdre l'empreinte enregistree et
-le mot de passe du coffre local, a reconfigurer sur le telephone. Les montees de version
-suivantes se feront sans geste preliminaire.
+A partir de la 2026.10.30.5, l'APK est signe avec le keystore de release KI-GEST, donc la
+2026.10.31.1 s'installe **par-dessus** la precedente sans desinstallation : l'empreinte
+enregistree et le mot de passe du coffre local sont conserves.
+
+Les versions jusqu'a 2026.10.30.4 incluse etaient signees avec la cle de debug : Android
+refuse une mise a jour dont la signature change (INSTALL_FAILED_UPDATE_INCOMPATIBLE).
+Passer directement de 2026.10.30.4 (ou plus ancien) a la 2026.10.31.1 necessite donc une
+desinstallation prealable, a reconfigurer sur le telephone.
 
 ## Installation
 
 1. Autoriser l'installation d'applications "sources inconnues" si demande.
 2. Ouvrir le fichier `.apk` telecharge.
-3. Au premier lancement, renseigner l'adresse du hub KI-GEST puis se connecter.
+3. Au premier lancement, renseigner l'adresse du hub KI-GEST (port 81 ajoute
+   automatiquement s'il est oublie) puis se connecter.
