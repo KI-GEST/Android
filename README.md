@@ -6,11 +6,39 @@ notifications locales.
 
 ## Telechargement (APK)
 
-Derniere version : **2026.10.31.2** (versionCode 8)
+Derniere version : **2026.10.31.3** (versionCode 9)
 
 - Installer via le QR code affiche dans KI-GEST > A propos, ou
 - Telecharger directement :
   https://github.com/KI-GEST/Android/releases/latest/download/com.kigest.mobile-Signed.apk
+
+## Nouveautes 2026.10.31.3
+
+La configuration de l'empreinte etait invisible, et un hub momentanement injoignable
+laissait l'ecran blanc jusqu'a rouvrir l'application.
+
+- **Le reglage « Connexion par empreinte » reapparait.** Le pont demandait a Android une
+  feature nommee `android.hardware.biometrics`. Ce nom n'existe sur **aucun** telephone :
+  ce n'est que le namespace Java. La reponse etait donc systematiquement « non », et la
+  page mobile masquait sa ligne de reglage sans le moindre message. Le test porte
+  desormais les noms reellement publies par la matrice de compatibilite :
+  `android.hardware.fingerprint`, `android.hardware.biometrics.face`,
+  `android.hardware.biometrics.iris`. Verifie sur un Galaxy A15 (Android 16) :
+  `adb shell pm list features` y declare le lecteur d'empreinte, la reglage apparait
+  des cette version.
+- **Le reglage est dans le menu du nom.** Le toucher en haut a droite de l'ecran
+  (la puce avec votre nom) ouvre la feuille ou figure « Connexion par empreinte »,
+  avec son etat (Non configuree / Activee) et le bouton pour l'activer ou la couper.
+- **Empreinte materielle ne veut pas dire doigt enregistre.** Nouvelle sonde
+  `KxBiometric.biometricEnrolled()` : si aucune empreinte n'est enregistree dans les
+  reglages Android, la ligne le dit et explique ou l'ajouter, au lieu de proposer une
+  activation qui echouerait a chaque demarrage.
+- **Rejeu automatique quand le hub est momentanement injoignable.** Un tunnel NetBird
+  mobile endormi abandonne la premiere connexion (`ERR_CONNECTION_ABORTED`) et passe a la
+  suivante : la page restait vide jusqu'a ce que l'utilisateur rouvre l'application. Trois
+  relances sont desormais jouees toutes seules, a 2, 4 puis 8 secondes, avec a l'ecran
+  « Hub injoignable : nouvelle tentative 1/3 dans 2 s. ». Au bout du troisieme echec, le
+  message rend la main au bouton Rafraichir au lieu d'insister.
 
 ## Nouveautes 2026.10.31.2
 
@@ -61,12 +89,12 @@ Correctif du « page blanche » constate apres la saisie de l'adresse du hub.
 ## Mise a jour depuis une version anterieure
 
 A partir de la 2026.10.30.5, l'APK est signe avec le keystore de release KI-GEST, donc la
-2026.10.31.2 s'installe **par-dessus** la precedente sans desinstallation : l'empreinte
+2026.10.31.3 s'installe **par-dessus** la precedente sans desinstallation : l'empreinte
 enregistree et le mot de passe du coffre local sont conserves.
 
 Les versions jusqu'a 2026.10.30.4 incluse etaient signees avec la cle de debug : Android
 refuse une mise a jour dont la signature change (INSTALL_FAILED_UPDATE_INCOMPATIBLE).
-Passer directement de 2026.10.30.4 (ou plus ancien) a la 2026.10.31.2 necessite donc une
+Passer directement de 2026.10.30.4 (ou plus ancien) a la 2026.10.31.3 necessite donc une
 desinstallation prealable, a reconfigurer sur le telephone.
 
 ## Installation
