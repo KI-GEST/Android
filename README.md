@@ -6,11 +6,36 @@ notifications locales.
 
 ## Telechargement (APK)
 
-Derniere version : **2026.10.31.3** (versionCode 9)
+Derniere version : **2026.11.01.2** (versionCode 14)
 
 - Installer via le QR code affiche dans KI-GEST > A propos, ou
 - Telecharger directement :
   https://github.com/KI-GEST/Android/releases/latest/download/com.kigest.mobile-Signed.apk
+
+## Nouveautes 2026.11.01.2
+
+L'application est desormais sous licence, comme le poste web.
+
+- **Licence demandee des l'ouverture.** Le numero de serie est remis par le revendeur
+  (ki-commercial@outlook.com) et recopie sur le telephone. Il est signe pour l'identifiant de
+  l'appareil : recopie sur un autre telephone, il sera refuse. Le telephone ne conserve que
+  l'empreinte SHA-256 du numero, dans un fichier chiffre lie a l'appareil ; aucun secret de
+  licence n'est embarque dans l'APK.
+- **Activation reussie : la duree s'affiche.** « Licence activee : 365 jour(s) restant(s)
+  (expire le 01/11/2027) », ou « sans limite de duree pour cet appareil » selon le numero
+  remis.
+- **Refus : le compteur parle.** « Licence incorrecte » avec les tentatives restantes. Trois
+  numeros essayes ferment la porte 15 minutes, compte a rebours a l'ecran ; le hub tient le
+  compteur, refuse meme un numero valide pendant la fermeture, et remet le compteur a trois
+  des qu'une activation reussit. Une faute de forme ou un numero expire ne consomment rien.
+- **Plus de demonstration de 30 jours.** Toute installation neuve de l'APK reste fermee
+  jusqu'a activation.
+- **Une licence activee ne se reactive pas.** Le champ de saisie disparait, et « Effacer » ne
+  peut plus rouvrir la saisie d'un numero encore dans sa duree. Un numero expire, en revanche,
+  se remplace.
+- **Exemption = droit de session.** Superviseur et Administrateur se connectent sans licence,
+  le temps de leur connexion seulement : l'exemption ne s'ecrit nulle part dans l'appareil et
+  la deconnexion rend la licence exigible.
 
 ## Nouveautes 2026.10.31.3
 
@@ -89,13 +114,17 @@ Correctif du « page blanche » constate apres la saisie de l'adresse du hub.
 ## Mise a jour depuis une version anterieure
 
 A partir de la 2026.10.30.5, l'APK est signe avec le keystore de release KI-GEST, donc la
-2026.10.31.3 s'installe **par-dessus** la precedente sans desinstallation : l'empreinte
+2026.11.01.2 s'installe **par-dessus** la precedente sans desinstallation : l'empreinte
 enregistree et le mot de passe du coffre local sont conserves.
 
 Les versions jusqu'a 2026.10.30.4 incluse etaient signees avec la cle de debug : Android
-refuse une mise a jour dont la signature change (INSTALL_FAILED_UPDATE_INCOMPATIBLE).
-Passer directement de 2026.10.30.4 (ou plus ancien) a la 2026.10.31.3 necessite donc une
+refuse une mise a jour dont la signature change (INSTALL_FAILED_UPDATE_INCOMPATIBLE). Passer
+directement de 2026.10.30.4 (ou plus ancien) a la 2026.11.01.2 necessite donc une
 desinstallation prealable, a reconfigurer sur le telephone.
+
+**Mais une licence sera reclamee.** Depuis la 2026.11.01.2 il n'y a plus de demonstration de
+30 jours : apres installation (ou remise a zero des donnees de l'app), l'ecran de licence
+s'ouvre et demande le numero correspondant a l'identifiant affiche sur ce telephone.
 
 ## Installation
 
